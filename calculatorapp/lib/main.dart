@@ -32,9 +32,9 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         display = "";
       } else if (value == "=") {
         try {
-          String finalExpression = display.replaceAll("×", "*").replaceAll("÷", "/");
+          String finalExpression =
+              display.replaceAll("×", "*").replaceAll("÷", "/");
 
-          // Simple evaluation logic
           display = _calculate(finalExpression);
         } catch (e) {
           display = "Error";
@@ -46,7 +46,6 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   }
 
   String _calculate(String expression) {
-    // Very simple parser (only + - * /)
     List<String> tokens = [];
     String number = "";
 
@@ -103,65 +102,72 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Calculator"),
+        backgroundColor: const Color.fromARGB(255, 41, 40, 40),
+        title: const Text("Calculator",style: TextStyle(fontStyle: FontStyle.italic,color: Colors.white),),
         centerTitle: true,
+
       ),
-      body: Column(
-        children: [
-          // Display
-          Expanded(
-            child: Container(
-              alignment: Alignment.bottomRight,
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                display,
-                style: const TextStyle(
-                  fontSize: 36,
-                  fontWeight: FontWeight.bold,
+      body: Padding(
+        padding: EdgeInsets.fromLTRB(10, 20, 10, 40),
+        child: Column(
+          children: [
+            // Display
+            Expanded(
+              child: Container(
+                alignment: Alignment.bottomRight,
+                padding: const EdgeInsets.all(40),
+                child: Text(
+                  display,
+                  style: const TextStyle(
+                    fontSize: 36,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
-          ),
-
-          // Buttons aligned at bottom
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Row(
+        
+            // Buttons with Bottom Gap Added
+            Padding(
+              padding: const EdgeInsets.only(bottom: 25), // 👈 GAP ADDED HERE
+              child: Column(
                 children: [
-                  buildButton("7"),
-                  buildButton("8"),
-                  buildButton("9"),
-                  buildButton("÷"),
+                  Row(
+                    children: [
+                      buildButton("7"),
+                      buildButton("8"),
+                      buildButton("9"),
+                      buildButton("÷"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      buildButton("4"),
+                      buildButton("5"),
+                      buildButton("6"),
+                      buildButton("×"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      buildButton("1"),
+                      buildButton("2"),
+                      buildButton("3"),
+                      buildButton("-"),
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      buildButton("C"),
+                      buildButton("0"),
+                      buildButton("="),
+                      buildButton("+"),
+                    ],
+                  ),
                 ],
               ),
-              Row(
-                children: [
-                  buildButton("4"),
-                  buildButton("5"),
-                  buildButton("6"),
-                  buildButton("×"),
-                ],
-              ),
-              Row(
-                children: [
-                  buildButton("1"),
-                  buildButton("2"),
-                  buildButton("3"),
-                  buildButton("-"),
-                ],
-              ),
-              Row(
-                children: [
-                  buildButton("C"),
-                  buildButton("0"),
-                  buildButton("="),
-                  buildButton("+"),
-                ],
-              ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }
